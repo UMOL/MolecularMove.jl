@@ -1,7 +1,3 @@
-if !isdefined(:MolecularDataType)
-    include(joinpath("..", "..", "MolecularDataType", "src", "MolecularDataType.jl"))
-end
-
 """
 ``Move`` module provides tools for moving
 (translating, rotating, ...) molecules
