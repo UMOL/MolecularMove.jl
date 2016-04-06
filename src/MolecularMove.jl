@@ -8,6 +8,7 @@ using MolecularDataType
 
 export AbstractPointIterator
 export Euclidean1D, Euclidean2D, Euclidean3D
+export RandomEuclidean3D
 export walk, rotate, grid
 
 macro debug(expression)

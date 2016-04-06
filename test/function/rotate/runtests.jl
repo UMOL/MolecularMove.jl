@@ -1,1 +1,2 @@
-include("test_rotate_3D_Euclidean.jl")
+include("test_rotate_Euclidean3D.jl")
+include("test_rotate_RandomEuclidean3D.jl")

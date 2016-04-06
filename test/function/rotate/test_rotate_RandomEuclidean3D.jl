@@ -1,13 +1,13 @@
 """
-A test for rotate(:Euclidean3D).
+A test for rotate(:RandomEuclidean3D,...).
 
 Arguments
 ----------
 point::Array
     the coordinate of a point
 
-angles::Array
-    the rotation angles in radian (a 3-element-vector)
+seed::Integer
+    seed to the random number generator 
 
 solution::Array
     answer key
@@ -18,9 +18,9 @@ msg:AbstractString
 args:
     optional arguments 
 """
-function test_rotate_3D_Euclidean(
+function test_rotate_RandomEuclidean3D(
     point::Array,
-    angles::Array,
+    seed::Integer,
     solution::Array,
     msg::AbstractString="",
     args...)
@@ -32,9 +32,9 @@ function test_rotate_3D_Euclidean(
     end
 
     if length(args) == 0
-        answer = rotate(Euclidean3D, point, angles)
+        answer = rotate(RandomEuclidean3D, point;seed=seed)
     else
-        answer = rotate(Euclidean3D, point, angles; center=args[1])
+        answer = rotate(RandomEuclidean3D, point; seed=seed, center=args[1])
     end
 
     @test_approx_eq answer solution
@@ -45,7 +45,7 @@ function test_rotate_3D_Euclidean(
     return true
 end
 
-test_rotate_3D_Euclidean([1., 0., 0.], [0., 0., pi/2.],  [0., 1., 0.], "test 1")
-test_rotate_3D_Euclidean([0., 1., 0.], [pi/2., 0., 0.],  [0., 0., 1.], "test 2")
-test_rotate_3D_Euclidean([0., 0., 1.], [0., pi/2., 0.],  [1., 0., 0.], "test 3")
-test_rotate_3D_Euclidean([1., 0., 0.], [0., 0., pi/2.],  [1., 0., 0.], "test 4 change center", [1., 0., 0])
+test_rotate_RandomEuclidean3D([1., 0., 0.], 123, [0., 1., 0.], "test 1")
+test_rotate_RandomEuclidean3D([0., 1., 0.], 123, [0., 0., 1.], "test 2")
+test_rotate_RandomEuclidean3D([0., 0., 1.], 123, [1., 0., 0.], "test 3")
+test_rotate_RandomEuclidean3D([1., 0., 0.], 123, [1., 0., 0.], "test 4 change center", [1., 0., 0])
