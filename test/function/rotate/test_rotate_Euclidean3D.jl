@@ -26,7 +26,7 @@ function test_rotate_Euclidean3D(
     args...)
 
     println("------------------------------------------")
-    print_with_color(:blue, "Test rotate_3D_Euclidean()\n\n")
+    print_with_color(:blue, "Test rotate(Euclidean3D,...)\n\n")
     if msg != ""
         print_with_color(:blue, "$(msg)\n")
     end
@@ -40,7 +40,7 @@ function test_rotate_Euclidean3D(
     @test_approx_eq answer solution
 
     println("------------------------------------------")
-    print_with_color(:green, "VERIFIED! rotate_3D_Euclidean()\n")
+    print_with_color(:green, "VERIFIED! rotate(Euclidean3D,...)\n")
 
     return true
 end

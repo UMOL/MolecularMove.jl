@@ -26,7 +26,7 @@ function test_rotate_RandomEuclidean3D(
     args...)
 
     println("------------------------------------------")
-    print_with_color(:blue, "Test rotate_3D_Euclidean()\n\n")
+    print_with_color(:blue, "Test rotate(RandomEuclidean3D,...)\n\n")
     if msg != ""
         print_with_color(:blue, "$(msg)\n")
     end
@@ -40,12 +40,12 @@ function test_rotate_RandomEuclidean3D(
     @test_approx_eq answer solution
 
     println("------------------------------------------")
-    print_with_color(:green, "VERIFIED! rotate_3D_Euclidean()\n")
+    print_with_color(:green, "VERIFIED! rotate(RandomEuclidean3D,...)\n")
 
     return true
 end
 
-test_rotate_RandomEuclidean3D([1., 0., 0.], 123, [0., 1., 0.], "test 1")
-test_rotate_RandomEuclidean3D([0., 1., 0.], 123, [0., 0., 1.], "test 2")
-test_rotate_RandomEuclidean3D([0., 0., 1.], 123, [1., 0., 0.], "test 3")
+test_rotate_RandomEuclidean3D([1., 0., 0.], 123, [-0.4280663289406466,-0.8267109360447378,0.36511401815229105], "test 1")
+test_rotate_RandomEuclidean3D([0., 1., 0.], 123, [-0.06405680979324863,-0.37522934974714917,-0.9247159889433312], "test 2")
+test_rotate_RandomEuclidean3D([0., 0., 1.], 123, [0.9014743164097297,-0.41922781791332137,0.1076665850728318], "test 3")
 test_rotate_RandomEuclidean3D([1., 0., 0.], 123, [1., 0., 0.], "test 4 change center", [1., 0., 0])
