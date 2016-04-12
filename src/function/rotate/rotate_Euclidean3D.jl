@@ -1,5 +1,10 @@
 """
 Rotate a vector around X, Y, and Z axes by angles A1, A2, and A3 in radian.
+Note: the number of dimensions of the input point array must be the same 
+as that of the center.
+For example, if input `point` is a vector, then the `center` must also be a vector.
+If input `point` is a matrix, then the `center` must be a matrix with a single row.
+The implementation of `rotate()` takes advantage Julia's broadcasting arithmetic feature.
 
 Arguments
 ----------
@@ -20,6 +25,7 @@ function rotate(::Type{Euclidean3D}, point::Array, angles::Array; center::Array=
     if length(center) == 0
         center = zeros(length(point))
     end
+    @debug @assert length(size(point)) == length(size(center))
 
     a, b, c = angles # shorthand aliases
 
@@ -40,6 +46,6 @@ function rotate(::Type{Euclidean3D}, point::Array, angles::Array; center::Array=
     if length(center) == 0
         return R_z * R_y * R_x * point
     else 
-        return (R_z * R_y * R_x * (point - center)) + center
+        return (R_z * R_y * R_x * (point .- center)) .+ center
     end
 end
