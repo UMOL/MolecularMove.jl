@@ -1,1 +1,1 @@
-include("test_Fibonacci_sphere.jl")
+include("test_sphere_Fibonacci.jl")
