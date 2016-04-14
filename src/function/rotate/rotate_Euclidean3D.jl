@@ -25,6 +25,11 @@ function rotate(::Type{Euclidean3D}, point::Array, angles::Array; center::Array=
     if length(center) == 0
         center = zeros(length(point))
     end
+
+    if issubtype(typeof(point[1]),Array)
+        return [rotate(Euclidean3D, item, angles; center=center) for item in point]
+    end 
+
     @debug @assert length(size(point)) == length(size(center))
 
     a, b, c = angles # shorthand aliases
