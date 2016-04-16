@@ -3,7 +3,7 @@ A test for sphere(Fibonacci,...).
 
 Arguments
 ----------
-test_vector:Array 
+test_vector:AbstractArray 
      a 3D test vector 
 
 count:Integer
@@ -21,7 +21,7 @@ msg="":AbstractString
 center=[]:Array
   (keyword) center of the sphere 
 """
-function test_sphere_Fibonacci(test_vector::Array, count::Integer, radius::AbstractFloat, solution::Array, msg::AbstractString=""; center::Array=[])
+function test_sphere_Fibonacci(test_vector::AbstractArray, count::Integer, radius::AbstractFloat, solution::Array, msg::AbstractString=""; center::Array=[])
     println("-------------------------------------")
     print_with_color(:blue, "Test sphere(Fibonacci, $(count))\n\n")
 

@@ -21,10 +21,10 @@ count:Integer
 radius:AbstractFloat
     radius of the sphere
 
-center=[0.,0.,0.]:Array 
+center=[0.,0.,0.]:AbstractArray 
     (keyword) center of the sphere
 """
-function sphere(::Type{Fibonacci}, count::Integer, radius::AbstractFloat; center::Array=[0.,0.,0.])
+function sphere(::Type{Fibonacci}, count::Integer, radius::AbstractFloat; center::AbstractArray=[0.,0.,0.])
     delta_phi = pi * (3. - sqrt(5.)) # incremental Fibonacci angle
     delta_z = 2./count * radius # increment along Z
     z_start = radius - delta_z/2.
@@ -48,6 +48,7 @@ function sphere(::Type{Fibonacci}, count::Integer, radius::AbstractFloat; center
             return coordinate
         end 
 
+        # translate the target point in space to a new location on the sphere
         if issubtype(typeof(coordinate[1]), Array)
             return [transform(index, item) for item in coordinate]
         else
@@ -58,7 +59,7 @@ function sphere(::Type{Fibonacci}, count::Integer, radius::AbstractFloat; center
                 shape = size(coordinate)
                 @debug @assert length(shape) == 2
                 @debug @assert shape[2] == 3
-                return transpose(Fibonacci_point(index)) .+ coordinate + transpose(center)
+                return transpose(Fibonacci_point(index)) .+ coordinate .+ transpose(center)
             end
         end
     end
