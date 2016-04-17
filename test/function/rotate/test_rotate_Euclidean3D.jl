@@ -25,7 +25,7 @@ function test_rotate_Euclidean3D(
     msg::AbstractString="",
     args...)
 
-    println("------------------------------------------")
+    print_dashed_line(80)
     print_with_color(:blue, "Test rotate(Euclidean3D,...)\n\n")
     if msg != ""
         print_with_color(:blue, "$(msg)\n")
@@ -41,14 +41,10 @@ function test_rotate_Euclidean3D(
         @test_approx_eq_eps answer[i] solution[i] 1e-16
     end
 
-    println("------------------------------------------")
+    print_dashed_line(80)
     print_with_color(:green, "VERIFIED! rotate(Euclidean3D,...)\n")
 
     return true
 end
 
-test_rotate_Euclidean3D([1., 0., 0.], [0., 0., pi/2.],  [0., 1., 0.], "test 1")
-test_rotate_Euclidean3D([0., 1., 0.], [pi/2., 0., 0.],  [0., 0., 1.], "test 2")
-test_rotate_Euclidean3D([0., 0., 1.], [0., pi/2., 0.],  [1., 0., 0.], "test 3")
-test_rotate_Euclidean3D(Array[[0., 0., 1.]], [0., pi/2., 0.],  Array[[1., 0., 0.]], "test 4: use array of arrays as input")
-test_rotate_Euclidean3D([1., 0., 0.], [0., 0., pi/2.],  [1., 0., 0.], "test 5: change center", [1., 0., 0])
+include("unit_tests_rotate.jl")

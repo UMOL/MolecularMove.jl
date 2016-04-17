@@ -51,6 +51,9 @@ function rotate(::Type{Euclidean3D}, point::Array, angles::Array; center::Array=
     if length(center) == 0
         return R_z * R_y * R_x * point
     else 
+        println("points ", point)
+        println("points shifted ", point .- center)
+        println("angles deg. ", rad2deg(angles))
         return (R_z * R_y * R_x * (point .- center)) .+ center
     end
 end

@@ -60,13 +60,17 @@ def fibo2(N):
     return points 
 
 gen_data = fibo
-data = np.array(gen_data(5, radius=15))
+data = np.array(gen_data(5, radius=10))
 np.set_printoptions(precision=15)
 print(data)
+
+for i in range(np.shape(data)[0]):
+    print("0.5x", data[i,:] * 0.5)
+    print("1.5x", data[i,:] * 1.5)
 ax.scatter(data[:,0], data[:,1], data[:,2], label='parametric curve')
 ax.legend()
 
 
 
 
-plt.show()
+# plt.show()
