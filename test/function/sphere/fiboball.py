@@ -60,7 +60,7 @@ def fibo2(N):
     return points 
 
 gen_data = fibo
-data = np.array(gen_data(5, 10))
+data = np.array(gen_data(5, radius=15))
 np.set_printoptions(precision=15)
 print(data)
 ax.scatter(data[:,0], data[:,1], data[:,2], label='parametric curve')
