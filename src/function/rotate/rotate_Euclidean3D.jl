@@ -33,7 +33,11 @@ center::AbstractArray
 function rotate(::Type{Euclidean3D}, input::AbstractArray, ref_axis::AbstractArray, 
     theta::AbstractFloat; center::Array=[])
 
-    if issubtype(typeof(input[1]),Array)
+    if length(input) == 0
+        return input 
+    end
+
+    if issubtype(typeof(input[1]), AbstractArray)
         return [rotate(Euclidean3D, item, ref_axis, theta; center=center) for item in input]
     end 
 

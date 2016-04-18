@@ -3,49 +3,56 @@ A test for rotate(:RandomEuclidean3D,...).
 
 Arguments
 ----------
-point::Array
-    the coordinate of a point
+Arguments
+----------
+:RandomEuclidean3D
+    first argument must be RandomEuclidean3D
 
-seed::Integer
-    seed to the random number generator 
+input::AbstractArray
+    input vector
 
 solution::Array
     answer key
 
+tol_near_zero=1e-7:AbstractFloat
+    (optional) tolerance for being close to zero
+
+max_iteration=1000:Integer
+    (optional) maximum number of iterations for generating a non-zero reference axis vector 
+
+center::AbstractArray
+    (keyword) If not set, the the zero vector (same length as the input)
+    is assumed.
+
+seed=0::Integer
+    (keyword) seed for the random number generator. If not set, 
+    the default seed of the random number generator will be used.
+
 msg:AbstractString
-    optional test message
-
-args:
-    optional arguments 
+    (keyword) test message
 """
-function test_rotate_RandomEuclidean3D(
-    point::Array,
-    seed::Integer,
-    solution::Array,
-    msg::AbstractString="",
-    args...)
+function test_rotate(::Type{RandomEuclidean3D},
+    input::AbstractArray, solution::AbstractArray,
+    tol_near_zero::AbstractFloat=1e-7, max_iteration::Integer=1000; 
+    center::AbstractArray=[], seed::Integer=0,
+    msg::AbstractString="")
 
-    println("------------------------------------------")
+    print_dashed_line(80)
     print_with_color(:blue, "Test rotate(RandomEuclidean3D,...)\n\n")
     if msg != ""
         print_with_color(:blue, "$(msg)\n")
     end
 
-    if length(args) == 0
-        answer = rotate(RandomEuclidean3D, point;seed=seed)
-    else
-        answer = rotate(RandomEuclidean3D, point; seed=seed, center=args[1])
-    end
+    @time answer = rotate(RandomEuclidean3D, input, tol_near_zero, max_iteration; seed=seed, center=center)
 
     @test_approx_eq answer solution
 
-    println("------------------------------------------")
+    print_dashed_line(80)
     print_with_color(:green, "VERIFIED! rotate(RandomEuclidean3D,...)\n")
 
     return true
 end
 
-test_rotate_RandomEuclidean3D([1., 0., 0.], 123, [-0.4280663289406466,-0.8267109360447378,0.36511401815229105], "test 1")
-test_rotate_RandomEuclidean3D([0., 1., 0.], 123, [-0.06405680979324863,-0.37522934974714917,-0.9247159889433312], "test 2")
-test_rotate_RandomEuclidean3D([0., 0., 1.], 123, [0.9014743164097297,-0.41922781791332137,0.1076665850728318], "test 3")
-test_rotate_RandomEuclidean3D([1., 0., 0.], 123, [1., 0., 0.], "test 4 change center", [1., 0., 0])
+test_rotate(RandomEuclidean3D, [1., 0., 0.], 
+    [0.6388464155251986,0.053677073000939435,0.7674594642094507],
+    seed=123, center=[], msg="test 1")

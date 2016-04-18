@@ -1,27 +1,52 @@
 """
-Rotate a vector around X, Y, and Z axes by random angles A1, A2, and A3 in radian.
+Rotate a vector around a random reference vector by a random angle.
 
 Arguments
 ----------
-:Euclidean3D
+:RandomEuclidean3D
     first argument must be RandomEuclidean3D
 
-point::Array
-    coordinate of a point 
+input::AbstractArray
+    input vector
 
-center::Array
-    (optional) keyword arguments. If not set, the the zero vector (same length as the input)
+tol_near_zero=1e-7:AbstractArray
+    tolerance for being close to zero
+
+max_iteration=1000:Integer
+    maximum number of iterations for generating a non-zero reference axis vector 
+
+center::AbstractArray
+    (keyword) If not set, the the zero vector (same length as the input)
     is assumed.
 
 seed=0::Integer
     (keyword) seed for the random number generator. If not set, 
     the default seed of the random number generator will be used.
 """
-function rotate(::Type{RandomEuclidean3D}, point::Array; center::Array=[], seed::Integer=0)
+function rotate(::Type{RandomEuclidean3D}, 
+    input::AbstractArray,
+    tol_near_zero::AbstractFloat=1e-7, max_iteration::Integer=1000; 
+    center::AbstractArray=[], seed::Integer=0)
+    
+    if issubtype(typeof(input[1]), AbstractArray)
+        return [rotate(RandomEuclidean3D, item, tol_near_zero, max_iteration; center=center, seed=seed) for item in input]
+    end 
+
     if seed != 0
         srand(seed)
     end
 
-    angles = 2 * pi * rand(3)
-    return rotate(Euclidean3D, point, angles; center=center)
+    @debug @assert length(input) == 3
+
+    theta = 2 * pi * rand() # rotation angle
+
+    ref_axis = zeros(3)
+    for i = 1:max_iteration
+        ref_axis = rand(3)
+        if norm(ref_axis, 2) > tol_near_zero
+            break
+        end
+    end
+
+    return rotate(Euclidean3D, input, ref_axis, theta; center=center)
 end
