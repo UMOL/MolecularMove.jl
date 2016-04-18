@@ -1,29 +1,37 @@
 """
-A test for rotate(:Euclidean3D).
+A test for rotate(Euclidean3D, ...).
 
 Arguments
 ----------
-point::Array
-    the coordinate of a point
+:Euclidean3D
+    first argument must be Euclidean3D
 
-angles::Array
-    the rotation angles in radian (a 3-element-vector)
+input:AbstractArray
+    coordinate of the input vector
 
-solution::Array
+ref_axis:AbstractArray 
+    a vector around which the input vector will be rotated
+
+theta::AbstractFloat
+    rotation angle with respect to the ``ref_axis``
+
+solution::AbstractArray
     answer key
 
 msg:AbstractString
-    optional test message
+    (optional) test message
 
-args:
-    optional arguments 
+center::AbstractArray
+    (keyword) If not set, the the zero vector (same length as the input)
+    is assumed.
 """
-function test_rotate_Euclidean3D(
-    point::Array,
-    angles::Array,
-    solution::Array,
-    msg::AbstractString="",
-    args...)
+function test_rotate(::Type{Euclidean3D},
+    input::AbstractArray,
+    ref_axis::AbstractArray,
+    angle::AbstractFloat,
+    solution::AbstractArray,
+    msg::AbstractString="";
+    center::AbstractArray=[])
 
     print_dashed_line(80)
     print_with_color(:blue, "Test rotate(Euclidean3D,...)\n\n")
@@ -31,10 +39,10 @@ function test_rotate_Euclidean3D(
         print_with_color(:blue, "$(msg)\n")
     end
 
-    if length(args) == 0
-        answer = rotate(Euclidean3D, point, angles)
+    if length(center) == 0
+        answer = rotate(Euclidean3D, input, ref_axis, angle)
     else
-        answer = rotate(Euclidean3D, point, angles; center=args[1])
+        answer = rotate(Euclidean3D, input, ref_axis, angle; center=center)
     end
 
     for i in 1:length(solution)

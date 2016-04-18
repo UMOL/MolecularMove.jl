@@ -1,59 +1,67 @@
 """
 Rotate a vector around X, Y, and Z axes by angles A1, A2, and A3 in radian.
-Note: the number of dimensions of the input point array must be the same 
+Note: the number of dimensions of the input input array must be the same 
 as that of the center.
-For example, if input `point` is a vector, then the `center` must also be a vector.
-If input `point` is a matrix, then the `center` must be a matrix with a single row.
-The implementation of `rotate()` takes advantage Julia's broadcasting arithmetic feature.
+For example, if input is a vector, then the `center` must also be a vector.
+
+This implementation uses 
+``Rodrigues formula`` for rotation around an arbitrary axis::
+     
+    Reference:
+    James M.van Verth & Lars M. Bishop 
+    "Essentital mathematics for games & interactive applications"
+    Morgan Kaufmann (2008) chapter 4. page 148
 
 Arguments
 ----------
 :Euclidean3D
     first argument must be Euclidean3D
 
-point::Array
-    coordinate of a point 
+input:AbstractArray
+    coordinate of the input vector
 
-angles::Array
-    rotation angles around X, Y, and Z
+ref_axis:AbstractArray 
+    a vector around which the input vector will be rotated
 
-center::Array
-    (optional) keyword arguments. If not set, the the zero vector (same length as the input)
+theta::AbstractFloat
+    rotation angle with respect to the ``ref_axis``
+
+center::AbstractArray
+    (keyword) If not set, the the zero vector (same length as the input)
     is assumed.
 """
-function rotate(::Type{Euclidean3D}, point::Array, angles::Array; center::Array=[])
-    if length(center) == 0
-        center = zeros(length(point))
-    end
+function rotate(::Type{Euclidean3D}, input::AbstractArray, ref_axis::AbstractArray, 
+    theta::AbstractFloat; center::Array=[])
 
-    if issubtype(typeof(point[1]),Array)
-        return [rotate(Euclidean3D, item, angles; center=center) for item in point]
+    if issubtype(typeof(input[1]),Array)
+        return [rotate(Euclidean3D, item, ref_axis, theta; center=center) for item in input]
     end 
 
-    @debug @assert length(size(point)) == length(size(center))
+    # make unit length ref. axis vector
+    length_of_ref_axis = norm(ref_axis, 2)
+    @debug @assert length_of_ref_axis > 0
+    ref_axis = ref_axis ./ length_of_ref_axis 
 
-    a, b, c = angles # shorthand aliases
+    @debug @assert length(input) == 3 
+    @debug @assert length(ref_axis) == 3 
 
-    # rotation matrix around the X axis
-    R_x = [1.     0.     0.;
-           0. cos(a) -sin(a);
-           0. sin(a)  cos(a)]
+    #---------------------------------------
+    # shorthand aliases
+    #---------------------------------------
+    x, y, z = ref_axis
+    c = cos(theta) 
+    s = sin(theta)
+    t = 1 - c
+    #---------------------------------------
 
-    # rotation matrix around the Y axis
-    R_y = [ cos(b)   0. sin(b);
-                0.   1.     0.;
-           -sin(b)   0. cos(b);]
+    R = [(t*x*x + c) (t*x*y - s*z) (t*x*z + s*y);
+         (t*x*y + s*z) (t*y*y + c) (t*y*z - s*x);
+         (t*x*z - s*y) (t*y*z + s*x) (t*z*z + c)]
 
-    # rotation matrix around the Z axis
-    R_z = [cos(c) -sin(c) 0.;
-           sin(c)  cos(c) 0.;
-               0.      0. 1.;]
     if length(center) == 0
-        return R_z * R_y * R_x * point
+        return R * input
     else 
-        println("points ", point)
-        println("points shifted ", point .- center)
-        println("angles deg. ", rad2deg(angles))
-        return (R_z * R_y * R_x * (point .- center)) .+ center
+        @debug @assert length(center) == 3
+        return (R * (input - center)) + center
     end
 end
