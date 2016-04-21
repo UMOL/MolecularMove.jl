@@ -38,7 +38,7 @@ function rotate(::Type{Euclidean3D}, input::AbstractArray, ref_axis::AbstractArr
     end
 
     if issubtype(typeof(input[1]), AbstractArray)
-        return [rotate(Euclidean3D, item, ref_axis, theta; center=center) for item in input]
+        return [Array{AbstractFloat,1}(rotate(Euclidean3D, item, ref_axis, theta; center=center)) for item in input]
     end 
 
     # make unit length ref. axis vector

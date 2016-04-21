@@ -49,6 +49,8 @@ function test_rotate(::Type{Euclidean3D},
         @test_approx_eq_eps answer[i] solution[i] 1e-16
     end
 
+    println("typeof(answer) ", typeof(answer))
+
     print_dashed_line(80)
     print_with_color(:green, "VERIFIED! rotate(Euclidean3D,...)\n")
 

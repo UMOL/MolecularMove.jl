@@ -48,7 +48,7 @@ function test_rotate(::Type{RandomEuclidean3D},
     for i = 1:length(solution)
         @test_approx_eq answer[i] solution[i]
     end
-    println("answer ", typeof(answer)) ##
+    println("typeof(answer) ", typeof(answer)) ##
     print_dashed_line(80)
     print_with_color(:green, "VERIFIED! rotate(RandomEuclidean3D,...)\n")
 
