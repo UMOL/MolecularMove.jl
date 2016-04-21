@@ -33,7 +33,7 @@ function rotate(::Type{RandomEuclidean3D},
     end 
 
     if seed != 0
-        srand(seed)
+        rotate(RandomEuclidean3D, seed)
     end
 
     @debug @assert length(input) == 3
