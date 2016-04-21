@@ -45,8 +45,10 @@ function test_rotate(::Type{RandomEuclidean3D},
 
     @time answer = rotate(RandomEuclidean3D, input, tol_near_zero, max_iteration; seed=seed, center=center)
 
-    @test_approx_eq answer solution
-
+    for i = 1:length(solution)
+        @test_approx_eq answer[i] solution[i]
+    end
+    println("answer ", typeof(answer)) ##
     print_dashed_line(80)
     print_with_color(:green, "VERIFIED! rotate(RandomEuclidean3D,...)\n")
 
@@ -55,4 +57,8 @@ end
 
 test_rotate(RandomEuclidean3D, [1., 0., 0.], 
     [0.6388464155251986,0.053677073000939435,0.7674594642094507],
+    seed=123, center=[], msg="test 1")
+
+test_rotate(RandomEuclidean3D, Array[[1., 0., 0.]], 
+    Array[[0.6388464155251986,0.053677073000939435,0.7674594642094507]],
     seed=123, center=[], msg="test 1")

@@ -29,7 +29,7 @@ function rotate(::Type{RandomEuclidean3D},
     center::AbstractArray=[], seed::Integer=0)
     
     if issubtype(typeof(input[1]), AbstractArray)
-        return [rotate(RandomEuclidean3D, item, tol_near_zero, max_iteration; center=center, seed=seed) for item in input]
+        return [Array{AbstractFloat,1}(rotate(RandomEuclidean3D, item, tol_near_zero, max_iteration; center=center, seed=seed)) for item in input]
     end 
 
     if seed != 0
@@ -48,5 +48,10 @@ function rotate(::Type{RandomEuclidean3D},
         end
     end
 
-    return rotate(Euclidean3D, input, ref_axis, theta; center=center)
+    if length(input) == 0
+        return Array{AbstractFloat,1}()
+    else
+        data_type = typeof(input[1])
+    end
+    return Array{data_type,1}(rotate(Euclidean3D, input, ref_axis, theta; center=center))
 end
