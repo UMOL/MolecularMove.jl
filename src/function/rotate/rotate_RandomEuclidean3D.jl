@@ -28,15 +28,9 @@ function rotate(::Type{RandomEuclidean3D},
     tol_near_zero::AbstractFloat=1e-7, max_iteration::Integer=1000; 
     center::AbstractArray=[], seed::Integer=0)
     
-    if issubtype(typeof(input[1]), AbstractArray)
-        return [Array{AbstractFloat,1}(rotate(RandomEuclidean3D, item, tol_near_zero, max_iteration; center=center, seed=seed)) for item in input]
-    end 
-
     if seed != 0
         rotate(RandomEuclidean3D, seed)
     end
-
-    @debug @assert length(input) == 3
 
     theta = 2 * pi * rand() # rotation angle
 

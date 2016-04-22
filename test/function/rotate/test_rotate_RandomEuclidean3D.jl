@@ -61,4 +61,11 @@ test_rotate(RandomEuclidean3D, [1., 0., 0.],
 
 test_rotate(RandomEuclidean3D, Array[[1., 0., 0.]], 
     Array[[0.6388464155251986,0.053677073000939435,0.7674594642094507]],
-    seed=123, center=[], msg="test 1")
+    seed=123, center=[], msg="test 2")
+
+test_rotate(RandomEuclidean3D, Array[[1., 0., 0.],[-1.,0.,0.]], 
+    Array[
+        [0.6388464155251986,0.053677073000939435,0.7674594642094507],
+        -[0.6388464155251986,0.053677073000939435,0.7674594642094507],
+        ],
+    seed=123, center=[0.,0.,0.], msg="test 3")
