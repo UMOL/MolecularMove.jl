@@ -9,7 +9,7 @@ using MolecularDataType
 export AbstractPointIterator
 export Euclidean1D, Euclidean2D, Euclidean3D
 export RandomEuclidean3D
-export Fibonacci
+export Fibonacci, PartialFibonacci
 export walk, rotate, grid, sphere
 
 macro debug(expression)
