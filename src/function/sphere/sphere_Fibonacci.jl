@@ -47,7 +47,7 @@ function sphere(::Type{Fibonacci}, count::Integer, radius::AbstractFloat; center
         if issubtype(typeof(coordinate[1]), Array)
             return [transform(index, item) for item in coordinate]
         else
-            if length(size(coordinate)) == 1 
+            if length(size(coordinate)) == 1 # 1D array
                 @debug @assert length(coordinate) == 3 # must be 3D
                 if length(center) > 0
                     @debug @assert length(coordinate) == length(center)
