@@ -6,7 +6,7 @@ module MolecularMove
 
 using MolecularDataType
 
-export AbstractPointIterator
+export AbstractMoveIterator
 export Euclidean1D, Euclidean2D, Euclidean3D
 export RandomEuclidean3D
 export Fibonacci, PartialFibonacci
