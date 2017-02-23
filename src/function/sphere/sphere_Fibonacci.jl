@@ -37,5 +37,5 @@ function sphere(::Type{Fibonacci}, count::Integer, radius::Real; center::Abstrac
         return [r*cos(phi), r*sin(phi), z]
     end
 
-    return make_spherical_move_iterator(Fibonacci_point, count, center)
+    return make_move_iterator(Fibonacci_point, count, center)
 end

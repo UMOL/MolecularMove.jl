@@ -10,7 +10,7 @@ export AbstractMoveIterator
 export Euclidean1D, Euclidean2D, Euclidean3D
 export RandomEuclidean3D
 export Fibonacci, PartialFibonacci
-export walk, rotate, grid, sphere
+export walk, rotate, grid, sphere, cylinder
 
 macro debug(expression)
     return :($expression)
