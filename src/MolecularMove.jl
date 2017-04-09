@@ -3,20 +3,21 @@
 (translating, rotating, ...) molecules
 """
 module MolecularMove
+using Reexport
 
-using MolecularDataType
+include(joinpath("Types","Types.jl"))
+include(joinpath("Toolkit", "Toolkit.jl"))
+include(joinpath("Fn","Fn.jl"))
 
+@reexport using Types
+@reexport using Fn
+@reexport using Toolkit
+
+export torus
 export AbstractMoveIterator
 export Euclidean1D, Euclidean2D, Euclidean3D
 export RandomEuclidean3D
 export Fibonacci, PartialFibonacci
 export walk, rotate, grid, sphere, cylinder
 
-macro debug(expression)
-    return :($expression)
-    # return nothing
-end
-
-include(joinpath("type","all.jl"))
-include(joinpath("function","all.jl"))
 end
