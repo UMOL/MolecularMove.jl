@@ -23,39 +23,46 @@ Arguments
 input:AbstractArray
     coordinate of the input vector
 
-ref_axis:AbstractArray 
-    a vector around which the input vector will be rotated
+ref=[]:Array{AbstractFloat,1}
+    (keyword) a vector around which the input vector will be rotated
 
-theta::AbstractFloat
-    rotation angle with respect to the ``ref_axis``
+theta=0.0::AbstractFloat
+    (keyword) rotation angle with respect to the ``ref``
 
-center::AbstractArray
+center=[]::Array{AbstractFloat,1}
     (keyword) If not set, the the zero vector (same length as the input)
     is assumed.
 """
-function rotate(::Type{Euclidean3D}, input::AbstractArray, ref_axis::AbstractArray, 
-    theta::AbstractFloat; center::Array=[])
+function rotate{T<:AbstractFloat, F<:AbstractFloat}(
+    ::Type{Euclidean3D},
+    input::AbstractArray;
+    ref::Array{T,1}=[], 
+    theta::F=0.0,
+    center::Array{T,1}=[])
 
     if length(input) == 0
         return input 
     end
 
     if issubtype(typeof(input[1]), AbstractArray)
-        return [Array{AbstractFloat,1}(rotate(Euclidean3D, item, ref_axis, theta; center=center)) for item in input]
+        data_type = typeof(input[1][1])
+        return [
+            Array{data_type,1}(rotate(Euclidean3D, item;
+                ref=ref, theta=theta, center=center)) for item in input]
     end 
 
     # make unit length ref. axis vector
-    length_of_ref_axis = norm(ref_axis, 2)
+    length_of_ref_axis = norm(ref, 2)
     @debug assert(length_of_ref_axis > 0)
-    ref_axis = ref_axis ./ length_of_ref_axis 
+    ref = ref ./ length_of_ref_axis 
 
     @debug @assert length(input) == 3 
-    @debug @assert length(ref_axis) == 3 
+    @debug @assert length(ref) == 3 
 
     #---------------------------------------
     # shorthand aliases
     #---------------------------------------
-    x, y, z = ref_axis
+    x, y, z = ref
     c = cos(theta) 
     s = sin(theta)
     t = 1 - c

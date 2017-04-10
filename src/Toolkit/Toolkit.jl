@@ -12,5 +12,5 @@ include(joinpath("Walk", "Walk.jl"))
 @reexport using .Walk
 
 export @debug
-export walk, rotate, make_move_iterator
+export walk, rotate, rotate_seed, make_move_iterator
 end

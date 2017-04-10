@@ -11,35 +11,31 @@ Arguments
 input::AbstractArray
     input vector
 
-tol_near_zero=1e-7:AbstractArray
-    tolerance for being close to zero
+tol=1e-7:AbstractFloat
+    (keyword) tolerance for being close to zero
 
-max_iteration=1000:Integer
-    maximum number of iterations for generating a non-zero reference axis vector 
+max_iter=1000:Integer
+    (keyword) maximum number of iterations for generating a non-zero reference axis vector 
 
-center::AbstractArray
+center=[]::Array{AbstractFloat, 1}
     (keyword) If not set, the the zero vector (same length as the input)
     is assumed.
-
-seed=0::Integer
-    (keyword) seed for the random number generator. If not set, 
-    the default seed of the random number generator will be used.
 """
-function rotate(::Type{RandomEuclidean3D}, 
-    input::AbstractArray,
-    tol_near_zero::AbstractFloat=1e-7, max_iteration::Integer=1000; 
-    center::AbstractArray=[], seed::Integer=0)
-    
-    if seed != 0
-        rotate(RandomEuclidean3D, seed)
-    end
+function rotate{T<:AbstractFloat}(
+    ::Type{RandomEuclidean3D}, 
+    input::AbstractArray;
+    tol::T=1e-7,
+    max_iter::Integer=1000,
+    center::Array{T,1}=[]
+    )
+
 
     theta = 2 * pi * rand() # rotation angle
 
     ref_axis = zeros(3)
-    for i = 1:max_iteration
+    for i = 1:max_iter
         ref_axis = rand(3)
-        if norm(ref_axis, 2) > tol_near_zero
+        if norm(ref_axis, 2) > tol
             break
         end
     end
@@ -49,5 +45,6 @@ function rotate(::Type{RandomEuclidean3D},
     else
         data_type = typeof(input[1])
     end
-    return Array{data_type,1}(rotate(Euclidean3D, input, ref_axis, theta; center=center))
+    return Array{data_type,1}(rotate(Euclidean3D, input;
+        ref=ref_axis, theta=thesta, center=center))
 end
