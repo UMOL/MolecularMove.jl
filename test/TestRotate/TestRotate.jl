@@ -6,6 +6,7 @@ include("Test4.jl")
 include("Test5.jl")
 include("Test6.jl")
 include("Test7.jl")
+include("Test8.jl")
 
 function test()
     Test1.test()
@@ -15,6 +16,7 @@ function test()
     Test5.test()
     Test6.test()
     Test7.test()
+    Test8.test()
 end
 
 export test

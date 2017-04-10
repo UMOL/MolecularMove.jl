@@ -33,22 +33,22 @@ center=[]::Array{AbstractFloat,1}
     (keyword) If not set, the the zero vector (same length as the input)
     is assumed.
 """
-function rotate{T<:AbstractFloat, F<:AbstractFloat}(
+function rotate{T1<:AbstractFloat, T2<:AbstractFloat}(
     ::Type{Euclidean3D},
     input::AbstractArray;
-    ref::Array{T,1}=[], 
-    theta::F=0.0,
-    center::Array{T,1}=[])
+    ref::Array{T1,1}=[], 
+    theta::AbstractFloat=0.0,
+    center::Array{T2,1}=[]
+    )
 
     if length(input) == 0
         return input 
     end
 
     if issubtype(typeof(input[1]), AbstractArray)
-        data_type = typeof(input[1][1])
         return [
-            Array{data_type,1}(rotate(Euclidean3D, item;
-                ref=ref, theta=theta, center=center)) for item in input]
+            rotate(Euclidean3D, item;
+                ref=ref, theta=theta, center=center) for item in input]
     end 
 
     # make unit length ref. axis vector

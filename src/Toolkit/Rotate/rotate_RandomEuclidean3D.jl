@@ -41,10 +41,9 @@ function rotate{T<:AbstractFloat}(
     end
 
     if length(input) == 0
-        return Array{AbstractFloat,1}()
-    else
-        data_type = typeof(input[1])
+        return input
     end
-    return Array{data_type,1}(rotate(Euclidean3D, input;
-        ref=ref_axis, theta=theta, center=center))
+
+    return rotate(Euclidean3D, input;
+        ref=ref_axis, theta=theta, center=center)
 end
