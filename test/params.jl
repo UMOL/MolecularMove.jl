@@ -2,7 +2,7 @@
 TestParams module contains all the parameters
 """
 module TestParams
-export data_dir, tmp_dir
+export data_dir
 
 """
 Define the data directory.

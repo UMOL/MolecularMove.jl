@@ -1,3 +1,5 @@
+import ...Types: RandomEuclidean3D
+
 """
 Rotate a vector around a random reference vector by a random angle.
 

@@ -1,3 +1,6 @@
+import ...Types: Euclidean3D
+import ..Debug: @debug
+
 """
 Rotate a vector around X, Y, and Z axes by angles A1, A2, and A3 in radian.
 Note: the number of dimensions of the input input array must be the same 

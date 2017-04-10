@@ -1,15 +1,13 @@
 using Base.Test
-include("params.jl")
-include("print_dashed_line.jl")
+include(joinpath("Common", "Common.jl"))
+include(joinpath("TestTorus", "TestTorus.jl"))
 
 if !isdefined(:MolecularMove)
     include(joinpath("..", "src", "MolecularMove.jl"))
 end
-using MolecularMove
 
 
-# include(joinpath("function", "walk", "runtests.jl"))
-# include(joinpath("function", "rotate", "runtests.jl"))
-# include(joinpath("function", "grid", "runtests.jl"))
-# include(joinpath("function","sphere","runtests.jl"))
-include(joinpath("function","cylinder","runtests.jl"))
+import .TestTorus
+
+
+TestTorus.test()

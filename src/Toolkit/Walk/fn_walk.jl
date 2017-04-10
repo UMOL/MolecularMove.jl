@@ -1,3 +1,6 @@
+import ..Debug: @debug
+
+
 """
 Translate a point or many points to a new location.
 

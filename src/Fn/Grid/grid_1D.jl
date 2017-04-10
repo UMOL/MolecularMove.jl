@@ -1,3 +1,7 @@
+import ...Types: Euclidean1D
+import ...Toolkit: @debug
+
+
 """
 Make a 1D grid of points.
 

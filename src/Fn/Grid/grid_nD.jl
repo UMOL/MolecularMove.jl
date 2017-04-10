@@ -1,3 +1,5 @@
+import ...Toolkit: @debug
+
 """
 Make a n-dimensional grid of points.
 

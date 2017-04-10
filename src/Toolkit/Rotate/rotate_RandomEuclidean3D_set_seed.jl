@@ -1,3 +1,6 @@
+import ...Types: RandomEuclidean3D
+
+
 """
 Set the seed for rotate(RandomEuclidean3D,...).
 

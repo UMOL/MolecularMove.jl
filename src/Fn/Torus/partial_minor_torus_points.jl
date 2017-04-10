@@ -42,17 +42,17 @@ center=Float64[]:Array{Real,1}
     (keyword) center of the torus
 """
 function torus{T<:AbsractFloat}(
-    ::Type{PartialFibonacci},
-    total_number::Integer,
-    major_radius::Real,
-    a::Real,
-    b::Real,
-    zmin::Real,
-    zmax::Real;
+    ::Type{PartialFibonacci};
+    total_number::Integer=0,
+    major_radius::Real=0,
+    a::Real=0.0,
+    b::Real=0.0,
+    zmin::Real=0.0,
+    zmax::Real=0.0;
     center::AbstractArray=Float64[])
-    @debug @assert major_radius > 0
-    @debug @assert a > 0
-    @debug @assert b > 0
+    @debug @assert major_radius >= 0
+    @debug @assert a >= 0
+    @debug @assert b >= 0
     @debug @assert zmax >= zmin
     Zmax = min(b, zmax)
     Zmin = max(-b, zmin)

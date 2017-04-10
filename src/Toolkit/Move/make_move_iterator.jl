@@ -1,3 +1,6 @@
+import ..Debug: @debug
+
+
 """
 Return an iterator of functions that move a point or array of points to a new position.
 
