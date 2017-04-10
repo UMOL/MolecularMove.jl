@@ -1,4 +1,5 @@
 import ...Types: PartialFibonacci
+import ...Toolkit: make_move_iterator
 
 
 """
@@ -19,7 +20,7 @@ Arguments
 :Type{Fibonacci}
     must be type ``Fibonacci``
 
-count:Integer
+number:Integer
     number of points on the partial sphere
 
 radius:Real
@@ -34,12 +35,17 @@ zmax:Real
 center=Float64[]:Array{Real,1}
     (keyword) center of the sphere
 """
-function sphere(::Type{PartialFibonacci}, count::Integer, radius::Real,
-    zmin::Real, zmax::Real;
-    center::AbstractArray=Float64[])
+function sphere(
+    ::Type{PartialFibonacci};
+    number::Integer=0,
+    radius::Real=0.0,
+    zmin::Real=0.0,
+    zmax::Real=0.0,
+    center::AbstractArray=Float64[]
+    )
     Zmax = min(radius, zmax)
     Zmin = max(-radius, zmin)
-    N = round(Int, count*2*radius/(Zmax - Zmin)) # total number of points
+    N = round(Int, number*2*radius/(Zmax - Zmin)) # total number of points
     delta_phi = pi * (3. - sqrt(5.)) # incremental Fibonacci angle
     delta_z = (2. * radius)/N # increment along Z
     z_start = radius - delta_z/2.
@@ -54,5 +60,5 @@ function sphere(::Type{PartialFibonacci}, count::Integer, radius::Real,
         return [r*cos(phi), r*sin(phi), z]
     end
 
-    return make_move_iterator(Fibonacci_point, count, center)
+    return make_move_iterator(Fibonacci_point, number, center)
 end

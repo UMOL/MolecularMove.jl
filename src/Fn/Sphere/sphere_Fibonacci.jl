@@ -1,4 +1,5 @@
 import ...Types: Fibonacci
+import ...Toolkit: make_move_iterator
 
 
 """
@@ -18,7 +19,7 @@ Arguments
 :Type{Fibonacci}
     must be type ``Fibonacci``
 
-count:Integer
+number:Integer
     number of grid points on the sphere
 
 radius:AbstractFloat
@@ -27,9 +28,13 @@ radius:AbstractFloat
 center=Float64[]:Array{Real,1}
     (keyword) center of the sphere
 """
-function sphere(::Type{Fibonacci}, count::Integer, radius::Real; center::AbstractArray=Float64[])
+function sphere(::Type{Fibonacci};
+    number::Integer=0,
+    radius::Real=0,
+    center::AbstractArray=Float64[]
+    )
     delta_phi = pi * (3. - sqrt(5.)) # incremental Fibonacci angle
-    delta_z = (2. * radius) /count # increment along Z
+    delta_z = (2. * radius) /number # increment along Z
     z_start = radius - delta_z/2.
 
     function Fibonacci_point(i::Integer)
@@ -40,5 +45,5 @@ function sphere(::Type{Fibonacci}, count::Integer, radius::Real; center::Abstrac
         return [r*cos(phi), r*sin(phi), z]
     end
 
-    return make_move_iterator(Fibonacci_point, count, center)
+    return make_move_iterator(Fibonacci_point, number, center)
 end
