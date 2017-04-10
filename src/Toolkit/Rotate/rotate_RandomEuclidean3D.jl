@@ -46,5 +46,5 @@ function rotate{T<:AbstractFloat}(
         data_type = typeof(input[1])
     end
     return Array{data_type,1}(rotate(Euclidean3D, input;
-        ref=ref_axis, theta=thesta, center=center))
+        ref=ref_axis, theta=theta, center=center))
 end

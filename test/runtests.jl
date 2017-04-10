@@ -20,9 +20,9 @@ import .TestRotate
 import .TestWalk
 
 
-TestTorus.test()
-TestCylinder.test()
-TestGrid.test()
-TestSphere.test()
+# TestTorus.test()
+# TestCylinder.test()
+# TestGrid.test()
+# TestSphere.test()
 TestRotate.test()
-TestWalk.test()
+# TestWalk.test()
