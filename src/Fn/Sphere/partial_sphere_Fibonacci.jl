@@ -1,3 +1,6 @@
+import ...Types: PartialFibonacci
+
+
 """
 Create a partial spherical grid using the Fibonacci algorithm
 and return an `iterator` object that returns a function 

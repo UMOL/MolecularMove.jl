@@ -1,3 +1,6 @@
+import ...Types: Fibonacci
+
+
 """
 Create a spherical grid using the Fibonacci algorithm
 and return an `iterator` object that returns a function 

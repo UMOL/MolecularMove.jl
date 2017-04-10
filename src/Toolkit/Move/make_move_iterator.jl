@@ -1,4 +1,6 @@
 import ..Debug: @debug
+import ...Types: FunctionalMoveIterator
+using Base.Test
 
 
 """
@@ -37,10 +39,10 @@ function make_move_iterator{T<:Real}(fn_direction_vector::Function, count::Integ
                 end
             else # 2D matrix
                 shape = size(coordinate)
-                @debug @assert length(shape) == 2
-                @debug @assert shape[2] == 3
+                @debug assert(length(shape) == 2)
+                @debug assert(shape[2] == 3)
                 if length(center) > 0
-                    @debug @assert length(coordinate[1,:]) == length(center)
+                    @debug assert(length(coordinate[1,:]) == length(center))
                     return transpose(fn_direction_vector(index)) .+ coordinate .+ transpose(center)
                 else
                     return transpose(fn_direction_vector(index)) .+ coordinate

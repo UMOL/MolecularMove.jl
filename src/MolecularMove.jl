@@ -9,9 +9,9 @@ include(joinpath("Types","Types.jl"))
 include(joinpath("Toolkit", "Toolkit.jl"))
 include(joinpath("Fn","Fn.jl"))
 
-@reexport using Types
-@reexport using Fn
-@reexport using Toolkit
+@reexport using .Types
+@reexport using .Fn
+@reexport using .Toolkit
 
 export torus
 export AbstractMoveIterator

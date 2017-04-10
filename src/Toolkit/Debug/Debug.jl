@@ -1,7 +1,7 @@
 module Debug
 macro debug(expression)
-    return :($expression)
-    # return nothing
+    # return eval(:($expression))
+    return nothing
 end
 export @debug
 end

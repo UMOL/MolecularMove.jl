@@ -1,6 +1,6 @@
 import ...Toolkit: @debug, make_move_iterator
 import ...Types: PartialFibonacci
-
+using Base.Test
 
 """
 Create a partial torus-shaped grid using the Fibonacci algorithm
@@ -20,10 +20,10 @@ Arguments
 :Type{Fibonacci}
     must be type ``Fibonacci``
 
-count:Integer
+number:Integer
     number of points on the partial torus
 
-major_radius:Real
+radius:Real
     radius of the torus
 
 a:Real
@@ -38,25 +38,22 @@ zmin:Real
 zmax:Real
     upper bound along Z
 
-center=Float64[]:Array{Real,1}
+center=Float64[]:Array{AbstractFloat,1}
     (keyword) center of the torus
 """
-function torus{T<:AbsractFloat}(
+function torus{T<:AbstractFloat}(
     ::Type{PartialFibonacci};
-    total_number::Integer=0,
-    major_radius::Real=0,
+    number::Integer=0,
+    radius::Real=0,
     a::Real=0.0,
     b::Real=0.0,
     zmin::Real=0.0,
-    zmax::Real=0.0;
-    center::AbstractArray=Float64[])
-    @debug @assert major_radius >= 0
-    @debug @assert a >= 0
-    @debug @assert b >= 0
-    @debug @assert zmax >= zmin
+    zmax::Real=0.0,
+    center::Array{T,1}=Float64[]
+    )
     Zmax = min(b, zmax)
     Zmin = max(-b, zmin)
-    N = round(Int, total_number*2*b/(Zmax - Zmin)) # total number of points
+    N = round(Int, number*2*b/(Zmax - Zmin)) # total number of points
     delta_phi = pi * (3. - sqrt(5.)) # incremental Fibonacci angle
     delta_z = (2.0 * b)/N # increment along Z
     z_start = b - delta_z/2.
@@ -66,10 +63,10 @@ function torus{T<:AbsractFloat}(
         # note: Julia's has one-based indexing
         id = i + i_offset
         z = z_start - (id - 1) * delta_z
-        r = a * sqrt(1.0 - (float(z)/b)^2) + major_radius
+        r = a * sqrt(1.0 - (float(z)/b)^2) + radius
         phi = (id - 1) * delta_phi 
         return [r*cos(phi), r*sin(phi), z]
     end
 
-    return make_move_iterator(point, total_number, center)
+    return make_move_iterator(point, number, center)
 end

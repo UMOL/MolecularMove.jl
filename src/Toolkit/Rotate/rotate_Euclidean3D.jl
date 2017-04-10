@@ -46,7 +46,7 @@ function rotate(::Type{Euclidean3D}, input::AbstractArray, ref_axis::AbstractArr
 
     # make unit length ref. axis vector
     length_of_ref_axis = norm(ref_axis, 2)
-    @debug @assert length_of_ref_axis > 0
+    @debug assert(length_of_ref_axis > 0)
     ref_axis = ref_axis ./ length_of_ref_axis 
 
     @debug @assert length(input) == 3 
