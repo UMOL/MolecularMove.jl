@@ -1,6 +1,0 @@
-test_rotate(Euclidean3D, [1., 0., 0.], [0., 0., 1.],  pi/2.,  [0., 1., 0.], "test 1")
-test_rotate(Euclidean3D, [0., 1., 0.], [1., 0., 0.],  pi/2.,  [0., 0., 1.], "test 2")
-test_rotate(Euclidean3D, [0., 0., 1.], [0., 1., 0.],  pi/2.,  [1., 0., 0.], "test 3")
-test_rotate(Euclidean3D, [1., 0., 0.], [0., 1., 0.], -pi/2.,  [0., 0., 1.], "test 4")
-test_rotate(Euclidean3D, Array[[1., 0., 0.]], [0., 0., 1.], pi/2.,  Array[[0., 1., 0.]], "test 5: use array of arrays as input")
-test_rotate(Euclidean3D, [1., 0., 0.], [0., 0., 1.], pi/2.,  [1., 0., 0.], "test 6: change center"; center=[1., 0., 0])
