@@ -14,6 +14,6 @@ import .TestCylinder
 import .TestGrid
 
 
-TestTorus.test()
-TestCylinder.test()
+# TestTorus.test()
+# TestCylinder.test()
 TestGrid.test()

@@ -1,3 +1,4 @@
+import ...Types: Euclidean
 import ...Toolkit: @debug
 
 """
@@ -5,6 +6,9 @@ Make a n-dimensional grid of points.
 
 Arguments
 -----------
+:Type{Euclidean}
+    Euclidean
+
 directions:Array{Array,1}
     directions of the grid for each dimension 
 
@@ -17,8 +21,9 @@ numbers:Array{Int,1}
 center:Array{AbstractFloat,1}
     center of the final grid
 """
-function grid{T<:AbstractFloat}(;
-    directions::Array{Array{T,1},1}=eye(3),
+function grid{T<:AbstractFloat}(
+    ::Type{Euclidean};
+    directions::Array{Array{T,1},1}=[],
     spacings::Array{T,1}=[1.0, 1.0, 1.0],
     numbers::Array{Int,1}=[0, 0, 0],
     center::Array{T,1}=[0.0, 0.0, 0.0])

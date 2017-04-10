@@ -6,6 +6,7 @@ include(joinpath("FunctionalMoveIterator", "FunctionalMoveIterator.jl"))
 include(joinpath("Fibonacci", "Fibonacci.jl"))   
 include(joinpath("Fibonacci", "PartialFibonacci.jl"))   
 
+export Euclidean
 export Euclidean1D
 export Euclidean2D
 export Euclidean3D

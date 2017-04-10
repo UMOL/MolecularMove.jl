@@ -22,7 +22,7 @@ function test_assemble_points(
         return result
       end
     end
-      
+    
     result = aux(answer - solution)
     @test_approx_eq_eps result 0 1e-7
     print_with_color(:green, "VERIFIED!\n\n")
