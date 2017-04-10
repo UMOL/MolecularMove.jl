@@ -11,37 +11,37 @@ directions:Array{Array,1}
 spacings:Array{AbstractFloat,1}
     spacings between two neighboring grid points for each dimension
 
-counts:Array{Int,1}
+numbers:Array{Int,1}
     number of grid points for each dimension
 
 center:Array{AbstractFloat,1}
     center of the final grid
 """
-function grid{T<:AbstractFloat}(
-    directions::Array{Array{T,1},1},
-    spacings::Array{T,1},
-    counts::Array{Int,1},
+function grid{T<:AbstractFloat}(;
+    directions::Array{Array{T,1},1}=eye(3),
+    spacings::Array{T,1}=[1.0, 1.0, 1.0],
+    numbers::Array{Int,1}=[0, 0, 0],
     center::Array{T,1}=[0.0, 0.0, 0.0])
-    @debug @assert length(counts) == length(spacings)
-    @debug @assert length(counts) == length(directions)
-    @debug @assert length(counts) == length(center)
+    @debug @assert length(numbers) == length(spacings)
+    @debug @assert length(numbers) == length(directions)
+    @debug @assert length(numbers) == length(center)
 
     # get offset
-    grid_sizes = spacings .* (counts - 1)
+    grid_sizes = spacings .* (numbers - 1)
     grid_center = grid_sizes / 2.0
     center_offset = center - grid_center
 
-    if length(counts) == 0
-        @debug print_with_color(:red, "WARNING! length(counts) must > 0 [from grid()]\n\n")
+    if length(numbers) == 0
+        @debug print_with_color(:red, "WARNING! length(numbers) must > 0 [from grid()]\n\n")
         return FunctionalMoveIterator(length=0)
-    elseif length(counts) == 1
-        return grid(Euclidean1D, directions[1], spacings[1], counts[1])
+    elseif length(numbers) == 1
+        return grid(Euclidean1D, directions[1], spacings[1], numbers[1])
     end
 
-    dimension_count = length(counts)
+    dimension_count = length(numbers)
     motion_vectors = [directions[i] / norm(directions[i],2) * spacings[i] for i = 1 : dimension_count]
 
-    counts_tuple = tuple(counts...)
+    counts_tuple = tuple(numbers...)
     function transform(index::Integer, coordinate::Array)
         if length(coordinate) == 0
             @debug print_with_color(:red, "WARNING! input coordinate is an empty array\n\n")
@@ -51,7 +51,7 @@ function grid{T<:AbstractFloat}(
         if issubtype(typeof(coordinate[1]), Array)
             return [transform(index, item) for item in coordinate]
         else
-            # must use tuple form of counts
+            # must use tuple form of numbers
             # otherwise ind2sub will return wrong results
             tuple_index = ind2sub(counts_tuple, index)
             for i = 1 : dimension_count
@@ -62,5 +62,5 @@ function grid{T<:AbstractFloat}(
         end
     end 
     
-    return FunctionalMoveIterator(generator=transform, length=prod(counts))
+    return FunctionalMoveIterator(generator=transform, length=prod(numbers))
 end

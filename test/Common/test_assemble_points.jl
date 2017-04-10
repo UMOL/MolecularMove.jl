@@ -15,9 +15,16 @@ function test_assemble_points(
 
     @time answer = vcat([transform(test_vector) for transform in builder(algo; params...)]...)
 
-    for i in length(solution) 
-        @test_approx_eq answer[i] solution[i]
+    function aux(result)
+      if issubtype(typeof(result), AbstractArray)
+        return aux(sum(result))
+      else
+        return result
+      end
     end
+      
+    result = aux(answer - solution)
+    @test_approx_eq_eps result 0 1e-7
     print_with_color(:green, "VERIFIED!\n\n")
     print_line(80)
 end

@@ -1,4 +1,4 @@
-import ...Types: Euclidean1D
+import ...Types: Euclidean1D, FunctionalMoveIterator
 import ...Toolkit: @debug
 
 
@@ -13,10 +13,15 @@ direction:Array{AbstractFloat,1}
 spacing:Number  
     spacing between two neighboring grid points
 
-count:Integer
+number:Integer
     number of grid points
 """
-function grid(::Type{Euclidean1D}, direction::Array, spacing::Number, count::Integer)
+function grid{T<:AbstractFloat}(
+    ::Type{Euclidean1D};
+    direction::Array{T,1}=[1.0, 0, 0],
+    spacing::Number=1.0,
+    number::Integer=0
+    )
     motion_vector = direction / norm(direction,2) * spacing
 
     function transform(index::Integer, coordinate::Array)
@@ -33,5 +38,5 @@ function grid(::Type{Euclidean1D}, direction::Array, spacing::Number, count::Int
         end
     end 
     
-    return FunctionalMoveIterator(generator=transform, length=count)
+    return FunctionalMoveIterator(generator=transform, length=number)
 end
