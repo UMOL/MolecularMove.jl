@@ -5,6 +5,7 @@ include(joinpath("TestCylinder", "TestCylinder.jl"))
 include(joinpath("TestGrid", "TestGrid.jl"))
 include(joinpath("TestSphere", "TestSphere.jl"))
 include(joinpath("TestRotate", "TestRotate.jl"))
+include(joinpath("TestWalk", "TestWalk.jl"))
 
 if !isdefined(:MolecularMove)
     include(joinpath("..", "src", "MolecularMove.jl"))
@@ -16,10 +17,12 @@ import .TestCylinder
 import .TestGrid
 import .TestSphere
 import .TestRotate
+import .TestWalk
 
 
-# TestTorus.test()
-# TestCylinder.test()
-# TestGrid.test()
-# TestSphere.test()
+TestTorus.test()
+TestCylinder.test()
+TestGrid.test()
+TestSphere.test()
 TestRotate.test()
+TestWalk.test()
